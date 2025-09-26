@@ -1,17 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>实验数据文件夹</title>
+  <title>SOC 文件下载列表</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: #333; }
+    h2 { color: #555; margin-top: 20px; }
+    ul { list-style-type: none; padding-left: 0; }
+    li { margin-bottom: 5px; }
+    a { text-decoration: none; color: #1a0dab; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-  <h1>实验数据</h1>
-  <ul>
-    <li><a href="0SOC/">0SOC 文件夹</a></li>
-    <li><a href="25SOC/">25SOC 文件夹</a></li>
-    <li><a href="50SOC/">50SOC 文件夹</a></li>
-    <li><a href="75SOC/">75SOC 文件夹</a></li>
-    <li><a href="100SOC/">100SOC 文件夹</a></li>
-  </ul>
+  <h1>SOC 文件下载列表</h1>
+  <div id="file-list"></div>
+
+  <script>
+    // 手动列出每个文件夹的文件名
+    const folders = {
+      "0%SOC": ["0%SOC-1.txt","0%SOC-2.txt","0%SOC-3.txt"],
+      "25%SOC": ["25%SOC-1.txt","25%SOC-2.txt","25%SOC-3.txt"],
+      "50%SOC": ["50%SOC-1.txt","50%SOC-2.txt","50%SOC-3.txt"],
+      "75%SOC": ["75%SOC-1.txt","75%SOC-2.txt","75%SOC-3.txt"],
+      "100%SOC": ["100%SOC-1.txt","100%SOC-2.txt","100%SOC-3.txt"]
+    };
+
+    const container = document.getElementById('file-list');
+
+    Object.keys(folders).forEach(folder => {
+      const h2 = document.createElement('h2');
+      h2.textContent = folder;
+      container.appendChild(h2);
+
+      const ul = document.createElement('ul');
+
+      folders[folder].forEach(fileName => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+
+        // 替换 URL 中的 % 为 %25
+        const fileUrl = `${folder.replace(/%/g,'%25')}/${fileName.replace(/%/g,'%25')}`;
+
+        a.href = fileUrl;
+        a.textContent = fileName;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+
+      container.appendChild(ul);
+    });
+  </script>
 </body>
 </html>
